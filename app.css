@@ -147,10 +147,11 @@ body {
 .to_do_list {
     width: 500px;
     height: 500px;
-    border: 2px solid red;
+    border: 2px solid black;
     margin: 2em;
     background-color: #f8d9db;
     padding: 1em;
+    border-radius: 5px;
 }
 
 h1 {
@@ -159,14 +160,14 @@ h1 {
     margin: .75em;
     border: 2px solid #b189f1;
     padding: .25em;
-    border-radius: 15%;
+    border-radius: 5px;
     background-color: #f8d9db;
     color: #8e89f1;
 }
 
 input {
     border: 2px solid black;
-    border-radius: 10%;
+    border-radius: 5px;
     padding: .5em;
 }
 
@@ -174,6 +175,6 @@ button {
     margin: 1em;
 }
 
-li {
+/* li {
     color: red;
-}
+} */
