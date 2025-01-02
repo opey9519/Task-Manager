@@ -1,33 +1,44 @@
 const express = require('express');
 const app = express();
+const path = require('path')
 const port = 3000;
 
-// Parses incoming JSON data to request.body
-app.use(express.json());
+
+app.use(express.json()); // Parses incoming JSON data to request.body
+
+app.use(express.urlencoded({ extended: true }))
+app.use(express.static(path.join(__dirname, 'public')))
+
+app.set('views', path.join(__dirname, 'views')) // defaults path to views
+app.set('view engine', 'ejs') // tells Express to find view files when rendering
 
 // Temporary database
 const tasks = [];
 
+// Renders Task Manager
+app.get('/', (req, res) => {
+    res.render('index', { tasks });
+})
 
-// Get all tasks from database (temp)
-app.get('/tasks', (request, response) => {
-    response.json(tasks);
-});
-
-app.post('/tasks', (request, response) => {
-
+// Create New Task
+app.post('/tasks', (req, res) => {
+    const { task } = req.body
+    if (task) {
+        tasks.push(task)
+    }
+    res.redirect('/')
 })
 
 // Delete task based on id number
-app.delete('/tasks:id', (request, response) => {
-    const id_num = parseInt(request.params.id);
+app.delete('/tasks:id', (req, res) => {
+    const id_num = parseInt(req.params.id);
 
     for (let i = 0; i < tasks.length; i++) {
         if (tasks[i].id === id_num) {
             tasks.splice(id_num, 1);
-            response.status(200).json({ message: 'Task deleted' })
+            res.status(200).json({ message: 'Task deleted' })
         } else {
-            response.status(404).json({ message: 'Tasks not found' })
+            res.status(404).json({ message: 'Tasks not found' })
         }
     }
 })

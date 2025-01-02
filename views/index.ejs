@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>To Do</title>
+    <link rel="stylesheet" href="/app.css">
+</head>
+
+<body>
+    <div class="container">
+        <h1>To Do</h1>
+        <form action="/tasks" method="post">
+            <input placeholder="New Task" id="input_box" type="text" name="task">
+            <button id="add_task" type="submit">Add</button>
+        </form>
+
+        <div class="to_do_list">
+            <ul id="list">
+                <% if (tasks) { %>
+                    <% for (let task of tasks) { %>
+                        <li>
+                            <%= task %>
+                        </li>
+                    <% } %>
+                <% } %>
+            </ul>
+        </div>
+    </div>
+
+    <script src="/app.js"></script>
+</body>
+
+</html>
