@@ -31,7 +31,7 @@ app.post('/tasks', (req, res) => {
 
 // Delete task based on id number
 app.delete('/tasks:id', (req, res) => {
-    const id_num = parseInt(req.params.id); // parses id into integer
+    const id_num = parseInt(req.params.id); // parses id
 
     for (let i = 0; i < tasks.length; i++) {
         if (tasks[i].id === id_num) {
