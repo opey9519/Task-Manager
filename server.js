@@ -29,7 +29,7 @@ const task_schema = new mongoose.Schema({
 })
 
 // Creates a collection in Mongo and creates an instance of class 'Task'
-const Task = mongoose.model('Task', movieSchema);
+const Task = mongoose.model('Task', task_schema);
 
 
 // Routing
@@ -50,7 +50,7 @@ app.patch('/tasks/:id/edit', (req, res) => {
 
 // Delete task data
 app.delete('/tasks/:id', (req, res) => {
-    
+
 })
 
 
