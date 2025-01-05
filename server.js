@@ -31,7 +31,7 @@ app.post('/tasks', (req, res) => {
 
 // Delete task based on id number
 app.delete('/tasks:id', (req, res) => {
-    const id_num = parseInt(req.params.id); // parses id
+    const id_num = parseInt(req.params.id); // parses id into integer
 
     for (let i = 0; i < tasks.length; i++) {
         if (tasks[i].id === id_num) {
@@ -43,6 +43,7 @@ app.delete('/tasks:id', (req, res) => {
     }
 })
 
+// Listening verification
 app.listen(port, () => {
     console.log(`Server is running on port ${port}`);
 })
