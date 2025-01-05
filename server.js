@@ -1,49 +1,60 @@
+// Requiring Dependencies
 const express = require('express');
-const app = express();
-const path = require('path')
-const port = 3000;
+const path = require('path');
+const mongoose = require('mongoose');
 
-
-app.use(express.json()); // Parses incoming JSON data to request.body
-
-app.use(express.urlencoded({ extended: true }))
-app.use(express.static(path.join(__dirname, 'public')))
-
+const app = express(); // Creating instance of express
+const port = 3000; // Port variable 
+app.use(express.static(path.join(__dirname, 'public')))  // serves CSS & JS files
 app.set('views', path.join(__dirname, 'views')) // defaults path to views
-app.set('view engine', 'ejs') // tells Express to find view files when rendering
+app.set('view engine', 'ejs') // gives Express access to viewing ejs
+app.use(express.json()); // Parses incoming JSON data to request.body
+app.use(express.urlencoded({ extended: true })) // 
 
-// Temporary database
-const tasks = [];
-
-// Renders Task Manager
-app.get('/', (req, res) => {
-    res.render('index', { tasks });
+// Connecting mongoose database
+mongoose.connect('mongodb://127.0.0.1:27017/tasks')
+.then(() => {
+    console.log("Connected to MongoDB")
+})
+.catch((error) => {
+    console.log("Error connecting to MongoDB")
+    console.log(error)
 })
 
-// Create New Task
-app.post('/tasks', (req, res) => {
-    const { task } = req.body
-    if (task) {
-        tasks.push(task)
-    }
-    res.redirect('/')
+// Mongoose schema
+const task_schema = new mongoose.Schema({
+    name: String,
+    date: String,
+    completed: Boolean,
 })
 
-// Delete task based on id number
-app.delete('/tasks:id', (req, res) => {
-    const id_num = parseInt(req.params.id); // parses id into integer
+// Creates a collection in Mongo and creates an instance of class 'Task'
+const Task = mongoose.model('Task', movieSchema);
 
-    for (let i = 0; i < tasks.length; i++) {
-        if (tasks[i].id === id_num) {
-            tasks.splice(id_num, 1);
-            res.status(200).json({ message: 'Task deleted' })
-        } else {
-            res.status(404).json({ message: 'Tasks not found' })
-        }
-    }
+
+// Routing
+// Index
+app.get('/tasks', (req, res) => {
+    res.render('index')
 })
+
+// Create new task
+app.post('/tasks/new', (req, res) => {
+
+})
+
+// Update task data
+app.patch('/tasks/:id/edit', (req, res) => {
+
+})
+
+// Delete task data
+app.delete('/tasks/:id', (req, res) => {
+    
+})
+
 
 // Listening verification
 app.listen(port, () => {
-    console.log(`Server is running on port ${port}`);
+    console.log(`Server is running on ${port}`)
 })
