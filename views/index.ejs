@@ -18,13 +18,11 @@
 
         <div class="to_do_list">
             <ul id="list">
-                <% //if (tasks) { %>
-                    <% //for (let task of tasks) { %>
-                        <!-- <li> -->
-                            <%= //task %>
-                        <!-- </li> -->
-                    <% //} %>
-                <% //} %> 
+                    <% for (let task of data) { %>
+                        <li> 
+                            <%= task.name %>
+                        </li>
+                    <% } %>
             </ul>
         </div>
     </div>

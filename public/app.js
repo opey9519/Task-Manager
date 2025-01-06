@@ -35,10 +35,3 @@ button.addEventListener('click', () => {
         input_box.value = '';
     }
 })
-
-// Front-end Logic
-fetch('/tasks')
-    .then(response => response.json())
-    .then(tasks => {
-    
-    })

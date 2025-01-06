@@ -31,11 +31,33 @@ const task_schema = new mongoose.Schema({
 // Creates a collection in Mongo and creates an instance of class 'Task'
 const Task = mongoose.model('Task', task_schema);
 
+// Check if tasks present in database
+async function check_data() {
+    try {
+        const data = await Task.find();
+        if (data.length > 0){
+            return data;
+        }
+        else {
+            console.log("NO DATA FOUND")
+            return [];
+        }
+    }
+    catch (error) {
+        console.log("Error Checking data:", error);
+    }
+}
 
 // Routing
 // Index
-app.get('/tasks', (req, res) => {
-    res.render('index')
+app.get('/tasks', async (req, res) => {
+    try{
+        const data = await check_data();
+        res.render('index', {data : data})
+    }
+    catch (error){
+        res.render("Error Loading Page")
+    }
 })
 
 // Create new task
