@@ -176,6 +176,21 @@ button {
     margin: 1em;
 }
 
-/* li {
-    color: red;
-} */
+li {
+    display: flex;
+    background-color: #cfbaf0;
+    font-size: 1.25em;
+    padding-left: .5em;
+    align-items: center;
+    justify-content: space-between;
+    border: 1px solid #8e89f1;
+    border-radius: 5px;
+}
+
+#delete_button {
+    background-color: #cfbaf0;
+    border: 1.5px solid #8e89f1;
+    border-radius: 5px;
+    cursor: pointer;
+    color: rgba(255, 255, 255, 0.824);
+}

@@ -26,6 +26,7 @@ button.addEventListener('click', () => {
         delete_button.style.border = '1.5px solid #8e89f1'
         delete_button.style.borderRadius = '5px';
         delete_button.style.cursor = 'pointer';
+        delete_button.id = 'delete_button';
         delete_button.addEventListener('click', () => {
             new_li.remove();
         });
