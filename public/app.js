@@ -3,6 +3,11 @@ const button = document.querySelector('#add_task');
 const input_box = document.querySelector('#input_box');
 const list = document.querySelector('#list');
 
+// Frontend delete request
+// function delete_button(id) {
+//     fetch(`/tasks/${id}`, {method: 'DELETE'})
+// }
+
 // If button clicked add Task
 button.addEventListener('click', () => {
     const task_text = input_box.value.trim(); // Rid white space
