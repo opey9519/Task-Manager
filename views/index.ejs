@@ -11,8 +11,9 @@
 <body>
     <div class="container">
         <h1>To Do</h1>
-        <form action="/tasks" method="post">
+        <form action="/tasks" method="POST">
             <input placeholder="New Task" id="input_box" type="text" name="task">
+            <input placeholder="Date of Completion" id="date_box" type="text" name="date">
             <button id="add_task" type="submit">Add</button>
         </form>
 
@@ -21,6 +22,7 @@
                 <% for (let task of data) { %>
                     <li>
                         <%= task.name %>
+                            <p> Due: <%= task.date %> </p>
                             <form method="POST" action="/tasks/<%= task._id %>?_method=DELETE">
                                 <button type="submit" id="delete_button">X</button>
                             </form>
