@@ -1,7 +1,8 @@
 // Requiring Dependencies
 const express = require('express');
 const path = require('path');
-const mongoose = require('mongoose');
+const mongoose = require('mongoose')
+const method_overide = require('method-override') // Allows usage of PUT & DELETE HTTP requests in non-native clients;
 
 const app = express(); // Creating instance of express
 const port = 3000; // Port variable 
@@ -10,7 +11,8 @@ app.set('views', path.join(__dirname, 'views')) // defaults path to views
 app.set('view engine', 'ejs') // gives Express access to viewing ejs
 app.use(express.json()); // Parses incoming JSON data to request.body
 app.use(express.urlencoded({ extended: true }))
-const method_overide = require('method-override') // Allows usage of PUT & DELETE HTTP requests in non-native clients
+app.use(method_overide('_method'))
+
 
 // Connecting mongoose database
 mongoose.connect('mongodb://127.0.0.1:27017/tasks')
@@ -72,15 +74,15 @@ app.patch('/tasks/:id/edit', (req, res) => {
 })
 
 // Delete task from database
-app.delete('/tasks/:id', (req, res) => {
+app.delete('/tasks/:id', async (req, res) => {
     try {
-        const id = req.params;
-        Task.findByIdAndDelete(id);
+        const { id } = req.params
+        await Task.findByIdAndDelete(id);
+        res.redirect('/tasks');
     }
     catch (error) {
         console.log("Error Deleting Task:", error);
     }
-    
 })
 
 

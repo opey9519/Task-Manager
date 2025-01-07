@@ -18,11 +18,13 @@
 
         <div class="to_do_list">
             <ul id="list">
-                    <% for (let task of data) { %>
-                        <li> 
-                            <%= task.name %>
-                            <button id="delete_button">X</button>
-                        </li>
+                <% for (let task of data) { %>
+                    <li>
+                        <%= task.name %>
+                            <form method="POST" action="/tasks/<%= task._id %>?_method=DELETE">
+                                <button type="submit" id="delete_button">X</button>
+                            </form>
+                    </li>
                     <% } %>
             </ul>
         </div>
