@@ -176,7 +176,7 @@ button {
     margin: 1em;
 }
 
-li {
+li, .list_item {
     display: flex;
     background-color: #cfbaf0;
     font-size: 1.25em;
@@ -187,7 +187,7 @@ li {
     border-radius: 5px;
 }
 
-#delete_button {
+.button {
     background-color: #cfbaf0;
     border: 1.5px solid #8e89f1;
     border-radius: 5px;

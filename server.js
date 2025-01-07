@@ -76,12 +76,26 @@ app.post('/tasks', async (req, res) => {
     }
     catch (error) {
         console.log("Error Adding Task:", error);
+        res.redirect('/tasks');
     }
 })
 
 // Update task data
-app.patch('/tasks/:id/edit', (req, res) => {
-
+app.patch('/tasks/:id/edit', async (req, res) => {
+    try {
+        const {id} = req.params;
+        const { task, date } = req.body;
+        await Task.findByIdAndUpdate(
+            id,
+            {name: task, date: date},
+            {new: true, runValidators: true}
+        );
+        
+    }
+    catch (error) {
+        console.log("Error Updating Task:", error);
+        res.redirect('/tasks');
+    }
 })
 
 // Delete task from database
@@ -93,6 +107,7 @@ app.delete('/tasks/:id', async (req, res) => {
     }
     catch (error) {
         console.log("Error Deleting Task:", error);
+        res.redirect('/tasks');
     }
 })
 

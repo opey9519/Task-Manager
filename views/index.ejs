@@ -24,7 +24,10 @@
                         <%= task.name %>
                             <p> Due: <%= task.date %> </p>
                             <form method="POST" action="/tasks/<%= task._id %>?_method=DELETE">
-                                <button type="submit" id="delete_button">X</button>
+                                <button type="submit" class="button" id="delete_button">X</button>
+                            </form>
+                            <form method="POST" action="/tasks/<%= task._id %>/edit?_method=PATCH">
+                                <button type="submit" class="button" id="update_button">U</button>
                             </form>
                     </li>
                     <% } %>
