@@ -42,7 +42,6 @@ async function check_data() {
             return data;
         }
         else {
-            console.log("NO DATA FOUND")
             return [];
         }
     }
@@ -64,8 +63,20 @@ app.get('/tasks', async (req, res) => {
 })
 
 // Create new task
-app.post('/tasks/new', (req, res) => {
-
+app.post('/tasks', async (req, res) => {
+    try {
+        const { task, date } = req.body;
+        const new_task = new Task({
+            name: task,
+            date: date,
+            complete: false
+        })
+        await new_task.save();
+        res.redirect('/tasks')
+    }
+    catch (error) {
+        console.log("Error Adding Task:", error);
+    }
 })
 
 // Update task data
