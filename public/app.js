@@ -73,7 +73,28 @@ update_button.addEventListener('click', (event) => {
     update_form.appendChild(submit_button);
 
     // Form submission 
-    update_form.addEventListener('submit', () => {
+    update_form.addEventListener('submit', async (event) => {
+        event.preventDefault();
+
+        const updated_task = update_task.value.trim();
+        const updated_date = update_date.value.trim();
+
+        try {
+            const response = await fetch(`/tasks/${list_id}/edit`, {
+                method: 'PATCH',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ task: updated_task, date: updated_date })
+            });
+
+            if (response.ok) {
+                list_item.firstChild.textContent = updated_task;
+                list_item.querySelector('p').innerText = updated_date;
+                update_form.remove();
+            }
+        }
+        catch (error) {
+            console.log("Error updating task:", error);
+        }
 
     })
 

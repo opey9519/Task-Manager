@@ -85,6 +85,7 @@ app.patch('/tasks/:id/edit', async (req, res) => {
     try {
         const {id} = req.params;
         const { task, date } = req.body;
+
         await Task.findByIdAndUpdate(
             id,
             {name: task, date: date},
