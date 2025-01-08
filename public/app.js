@@ -1,18 +1,18 @@
 // Creating Query Selectors
-const button = document.querySelector('#add_task');
-const update_button = doucment.querySelector('#update_button')
+const add_button = document.querySelector('#add_task');
+const update_button = document.querySelector('#update_button')
 const input_box = document.querySelector('#input_box');
 const date_box = document.querySelector('#date_box');
 const list = document.querySelector('#list');
 
 
 // If button clicked add Task
-button.addEventListener('click', () => {
+add_button.addEventListener('click', () => {
     const task_text = input_box.value.trim();
-    const date_text = input_box.value.trim();
+    const date_text = date_box.value.trim();
 
     // Verifying Input
-    if (task_text !== '') {
+    if ((task_text !== '') && (date_text !== '')) {
 
         // Create New Task
         const new_li = document.createElement('li');
@@ -41,18 +41,42 @@ button.addEventListener('click', () => {
 })
 
 // Creats Update Form on Click
-update_button.addEventListener('click', () => {
-    const new_form = document.createElement('form');
+update_button.addEventListener('click', (event) => {
+    const list_item = event.target.closest('li'); // Obtain li element
+    const list_id = list_item.dataset.id; // Obtain mongoDB _id
+
+    // Create update form
+    const update_form = document.createElement('form');
+    update_form.method = 'POST';
+    update_form.action = `/tasks/${list_id}/edit?_method=PATCH`;
+
+    // Create update task input
     const update_task = document.createElement('input');
+    update_task.name = 'task';
+    update_task.type = 'text';
+
+    // Create update date input
     const update_date = document.createElement('input');
+    update_date.name = 'date';
+    update_date.type = 'date';
+
+    // Create submission button
     const submit_button = document.createElement('button');
+    submit_button.type = 'submit';
+    submit_button.innerText = 'Submit';
+    submit_button.classList.add('button')
 
+    // Append created elements
+    list_item.appendChild(update_form);
+    update_form.appendChild(update_task);
+    update_form.appendChild(update_date);
+    update_form.appendChild(submit_button);
 
+    // Form submission 
+    update_form.addEventListener('submit', () => {
 
-    new_li.appendChild(new_form);
-    new_form.appendChild(update_task);
-    new_form.appendChild(update_date);
-    new_form.appendChild(submit_button);
+    })
+
 })
 
 // Update Text Boxes

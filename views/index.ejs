@@ -13,22 +13,21 @@
         <h1>To Do</h1>
         <form action="/tasks" method="POST">
             <input placeholder="New Task" id="input_box" type="text" name="task">
-            <input placeholder="Date of Completion" id="date_box" type="text" name="date">
+            <input placeholder="Date of Completion" id="date_box" type="date" name="date">
             <button id="add_task" type="submit">Add</button>
         </form>
 
         <div class="to_do_list">
             <ul id="list">
                 <% for (let task of data) { %>
-                    <li>
+                    <li data-id=" <%= task._id %>">
                         <%= task.name %>
                             <p> Due: <%= task.date %> </p>
                             <form method="POST" action="/tasks/<%= task._id %>?_method=DELETE">
                                 <button type="submit" class="button" id="delete_button">X</button>
                             </form>
-                            <form method="POST" action="/tasks/<%= task._id %>/edit?_method=PATCH">
-                                <button type="submit" class="button" id="update_button">U</button>
-                            </form>
+        
+                            <button type="button" class="button" id="update_button">U</button>
                     </li>
                     <% } %>
             </ul>
