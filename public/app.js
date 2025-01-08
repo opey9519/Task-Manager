@@ -63,7 +63,7 @@ update_button.addEventListener('click', (event) => {
     // Create submission button
     const submit_button = document.createElement('button');
     submit_button.type = 'submit';
-    submit_button.innerText = 'Submit';
+    submit_button.innerText = 'S'
     submit_button.classList.add('button')
 
     // Append created elements
@@ -87,8 +87,9 @@ update_button.addEventListener('click', (event) => {
             });
 
             if (response.ok) {
-                list_item.firstChild.textContent = updated_task;
-                list_item.querySelector('p').innerText = updated_date;
+                const updatedTask = await response.json()
+                list_item.firstChild.textContent = updatedTask.name;
+                list_item.querySelector('p').innerText = updatedTask.date;
                 update_form.remove();
             }
         }

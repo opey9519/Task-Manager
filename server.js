@@ -86,12 +86,13 @@ app.patch('/tasks/:id/edit', async (req, res) => {
         const {id} = req.params;
         const { task, date } = req.body;
 
-        await Task.findByIdAndUpdate(
+        const updated_task = await Task.findByIdAndUpdate(
             id,
             {name: task, date: date},
             {new: true, runValidators: true}
         );
-        
+
+        res.status(200).json(updated_task); // send updated json to frontend
     }
     catch (error) {
         console.log("Error Updating Task:", error);

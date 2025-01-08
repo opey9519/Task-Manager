@@ -145,8 +145,8 @@ body {
 }
 
 .to_do_list {
-    width: 500px;
-    height: 500px;
+    width: 750px;
+    height: 750px;
     border: 2px solid black;
     margin: 2em;
     background-color: #f8d9db;
@@ -160,6 +160,8 @@ h1 {
     margin: .75em;
     border: 2px solid #b189f1;
     padding: .25em;
+    padding-left: 3em;
+    padding-right: 3em;
     border-radius: 5px;
     background-color: #f8d9db;
     color: #8e89f1;
@@ -193,4 +195,6 @@ li, .list_item {
     border-radius: 5px;
     cursor: pointer;
     color: rgba(255, 255, 255, 0.824);
+    /* font-size: 1em;
+    padding: .25em; */
 }
