@@ -1,6 +1,7 @@
 // Creating Query Selectors
 const add_button = document.querySelector('#add_task');
 const update_button = document.querySelector('#update_button')
+let clicked_update = false; // Used to toggle update button
 const input_box = document.querySelector('#input_box');
 const date_box = document.querySelector('#date_box');
 const list = document.querySelector('#list');
@@ -40,64 +41,79 @@ add_button.addEventListener('click', () => {
     }
 })
 
-// Creats Update Form on Click
+// Creates Update Form on Click
 update_button.addEventListener('click', (event) => {
+
     const list_item = event.target.closest('li'); // Obtain li element
     const list_id = list_item.dataset.id; // Obtain mongoDB _id
 
-    // Create update form
-    const update_form = document.createElement('form');
-    update_form.method = 'POST';
-    update_form.action = `/tasks/${list_id}/edit?_method=PATCH`;
+    const existing_form = list_item.querySelector('form')
+    if (existing_form) {
+        existing_form.remove();
+        clicked_update = false;
+        return;
+    }
 
-    // Create update task input
-    const update_task = document.createElement('input');
-    update_task.name = 'task';
-    update_task.type = 'text';
+    if (!clicked_update) {
 
-    // Create update date input
-    const update_date = document.createElement('input');
-    update_date.name = 'date';
-    update_date.type = 'date';
 
-    // Create submission button
-    const submit_button = document.createElement('button');
-    submit_button.type = 'submit';
-    submit_button.innerText = 'S'
-    submit_button.classList.add('button')
+        // Create update form
+        const update_form = document.createElement('form');
+        update_form.method = 'POST';
+        update_form.action = `/tasks/${list_id}/edit?_method=PATCH`;
 
-    // Append created elements
-    list_item.appendChild(update_form);
-    update_form.appendChild(update_task);
-    update_form.appendChild(update_date);
-    update_form.appendChild(submit_button);
+        // Create update task input
+        const update_task = document.createElement('input');
+        update_task.name = 'task';
+        update_task.type = 'text';
 
-    // Form submission 
-    update_form.addEventListener('submit', async (event) => {
-        event.preventDefault();
+        // Create update date input
+        const update_date = document.createElement('input');
+        update_date.name = 'date';
+        update_date.type = 'date';
 
-        const updated_task = update_task.value.trim();
-        const updated_date = update_date.value.trim();
+        // Create submission button
+        const submit_button = document.createElement('button');
+        submit_button.type = 'submit';
+        submit_button.innerText = 'S'
+        submit_button.classList.add('button')
 
-        try {
-            const response = await fetch(`/tasks/${list_id}/edit`, {
-                method: 'PATCH',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ task: updated_task, date: updated_date })
-            });
+        // Append created elements
+        list_item.appendChild(update_form);
+        update_form.appendChild(update_task);
+        update_form.appendChild(update_date);
+        update_form.appendChild(submit_button);
 
-            if (response.ok) {
-                const updatedTask = await response.json()
-                list_item.firstChild.textContent = updatedTask.name;
-                list_item.querySelector('p').innerText = updatedTask.date;
-                update_form.remove();
+        // Form submission 
+        update_form.addEventListener('submit', async (event) => {
+            event.preventDefault();
+
+            const updated_task = update_task.value.trim();
+            const updated_date = update_date.value.trim();
+
+            try {
+                const response = await fetch(`/tasks/${list_id}/edit`, {
+                    method: 'PATCH',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ task: updated_task, date: updated_date })
+                });
+
+                if (response.ok) {
+                    const updatedTask = await response.json()
+                    
+                    list_item.firstChild.textContent = updatedTask.name;
+                    list_item.querySelector('p').innerText = updatedTask.date;
+                    update_form.remove();
+                    clicked_update = false;
+                }
             }
-        }
-        catch (error) {
-            console.log("Error updating task:", error);
-        }
+            catch (error) {
+                console.log("Error updating task:", error);
+            }
 
-    })
+        })
+        clicked_update = true;
+    }
 
 })
 
