@@ -178,7 +178,8 @@ button {
     margin: 1em;
 }
 
-li, .list_item {
+li,
+.list_item {
     display: flex;
     background-color: #cfbaf0;
     font-size: 1.25em;
@@ -197,4 +198,19 @@ li, .list_item {
     color: rgba(255, 255, 255, 0.824);
     /* font-size: 1em;
     padding: .25em; */
+}
+
+#complete_button {
+    border-radius: 50%;
+    width: 2em;
+    height: 2em;
+    background-color: #f8d9db;
+    border: 1px solid #8e89f1;
+    color: white;
+    cursor: pointer;
+}
+
+#complete_button:hover {
+    background-color: #8e89f1;
+    border: 1px solid #f8d9db;
 }
